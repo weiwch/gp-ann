@@ -6,7 +6,7 @@
 
 #include <parlay/parallel.h>
 
-#include "../external/hnswlib/hnswlib/hnswlib.h"
+#include "hnswlib/hnswlib.h"
 
 #include "metis_io.h"
 

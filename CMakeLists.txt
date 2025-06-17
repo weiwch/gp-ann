@@ -8,8 +8,6 @@ option(KAMINPAR_64BIT_WEIGHTS "Enable 64 bit weights in KaMinPar" ON)
 option(KAMINPAR_64BIT_EDGE_IDS "Enable 64 bit edge IDs in KaMinPar" ON)
 option(KAMINPAR_ENABLE_TIMERS "Enable KaMinPar running time measurements (disable to call the library in parallel)" OFF)
 
-set(CMAKE_CXX_STANDARD 20)
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wpedantic -Wunused")
 set(CMAKE_CXX_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-omit-frame-pointer -g")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -mtune=native -march=native -ffast-math")
@@ -18,7 +16,7 @@ set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -lm")
 
 add_subdirectory(external/parlaylib)
 add_subdirectory(external/KaMinPar)
-add_subdirectory(external/hnswlib)
+# add_subdirectory(external/hnswlib)
 # add_subdirectory(external/message-queue)
 
 include_directories("src")

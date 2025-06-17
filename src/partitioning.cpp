@@ -4,7 +4,7 @@
 
 #include <kaminpar-shm/kaminpar.h>
 
-#include "../external/hnswlib/hnswlib/hnswlib.h"
+#include "hnswlib/hnswlib.h"
 #include "hnsw_router.h"
 
 #include <parlay/primitives.h>

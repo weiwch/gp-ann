@@ -4,7 +4,7 @@
 #include "metis_io.h"
 
 #include "hnsw_router.h"
-#include "../external/hnswlib/hnswlib/hnswlib.h"
+#include "hnswlib/hnswlib.h"
 
 #include "../external/message-queue/include/message-queue/buffered_queue.hpp"
 

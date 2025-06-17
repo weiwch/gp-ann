@@ -4,7 +4,7 @@
 #include <sstream>
 #include <fstream>
 #include "defs.h"
-#include "../external/hnswlib/hnswlib/hnswlib.h"
+#include "hnswlib/hnswlib.h"
 #include <parlay/parallel.h>
 #include <parlay/sequence.h>
 

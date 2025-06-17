@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <chrono>
 #include <algorithm>
-
+#include <stdexcept>
 #include "topn.h"
 
 struct PointSet {
