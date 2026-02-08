@@ -13,7 +13,8 @@ struct KMeansTreeRouterOptions {
 class KMeansTreeRouter {
 public:
     void Train(PointSet& points, const Clusters& clusters, KMeansTreeRouterOptions options);
-
+    void Train(float* points, size_t num_points, size_t p_dim, const Clusters& clusters, KMeansTreeRouterOptions options);
+    
     std::vector<int> Query(float* Q, int budget);
 
     struct FrequencyQueryData {

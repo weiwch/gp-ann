@@ -22,6 +22,20 @@ PointSet ExtractPointsInBucket(const std::vector<uint32_t>& bucket, PointSet& po
     return ps;
 }
 
+PointSet ExtractPointsInBucket(const std::vector<uint32_t>& bucket, float* poi, size_t num_points, size_t p_dim) {
+    PointSet ps;
+    ps.n = bucket.size();
+    ps.d = p_dim;
+    ps.coordinates.reserve(ps.n * ps.d);
+    for (auto u : bucket) {
+        float* p = poi + u * p_dim;
+        for (size_t j = 0; j < p_dim; ++j) {
+            ps.coordinates.push_back(p[j]);
+        }
+    }
+    return ps;
+}
+
 int NumPartsInPartition(const std::vector<int>& partition) {
     if (partition.empty()) return 0;
     return *std::max_element(partition.begin(), partition.end()) + 1;
@@ -33,6 +47,9 @@ std::vector<std::vector<uint32_t>> ConvertPartitionToClusters(const std::vector<
     for (uint32_t u = 0; u < partition.size(); ++u) {
         buckets[partition[u]].push_back(u);
     }
+    // for(int i=0;i<num_buckets;i++){
+    //     printf("cluster size: %d\n", buckets[i].size());
+    // }
     return buckets;
 }
 

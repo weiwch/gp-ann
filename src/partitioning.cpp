@@ -259,7 +259,7 @@ Partition GraphPartitioning(PointSet& points, int num_clusters, double epsilon, 
         std::cout << "Writing knn graph file to " << graph_output_path << std::endl;
         WriteMetisGraph(graph_output_path, knn_graph);
     }
-    points.Drop();
+    // points.Drop();
     return PartitionAdjListGraph(knn_graph, num_clusters, epsilon, std::min<int>(64, parlay::num_workers()), strong);
 }
 

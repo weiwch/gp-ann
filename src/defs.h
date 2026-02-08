@@ -21,6 +21,7 @@ struct PointSet {
 };
 
 PointSet ExtractPointsInBucket(const std::vector<uint32_t>& bucket, PointSet& points);
+PointSet ExtractPointsInBucket(const std::vector<uint32_t>& bucket, float* poi, size_t num_points, size_t p_dim);
 
 // maps a point to one cluster
 using Partition = std::vector<int>;

@@ -32,6 +32,33 @@ void KMeansTreeRouter::Train(PointSet& points, const Clusters& clusters, KMeansT
             num_shards / num_shards_processed_in_parallel);
 }
 
+void KMeansTreeRouter::Train(float* points, size_t num_points, size_t p_dim, const Clusters& clusters, KMeansTreeRouterOptions options) {
+    num_shards = clusters.size();
+    roots.resize(num_shards);
+    dim = p_dim;
+
+    std::cout << "Train. num-shards = " << num_shards << " dim = " << dim << " budget = " << options.budget << std::endl;
+
+    int num_shards_processed_in_parallel = 8;
+#ifdef MIPS_DISTANCE
+    // not for MIPS_DISTANCE (just for text-to-image...)
+    num_shards_processed_in_parallel = 4;
+#endif
+
+    parlay::parallel_for(
+            0, num_shards,
+            [&](int b) {
+                // for (int b = 0; b < num_shards; ++b) {      // go sequential for the big datasets on not the biggest memory machines
+                PointSet ps = ExtractPointsInBucket(clusters[b], points, num_points, p_dim);
+                KMeansTreeRouterOptions recursive_options = options;
+                recursive_options.budget = double(clusters[b].size() * options.budget) / num_points;
+                TrainRecursive(ps, recursive_options, roots[b], 555 * b);
+                // }
+            },
+            num_shards / num_shards_processed_in_parallel);
+}
+
+
 void KMeansTreeRouter::TrainRecursive(PointSet& points, KMeansTreeRouterOptions options, TreeNode& tree_node, int seed) {
     PointSet centroids = RandomSample(points, std::max(2, std::min<int>(options.num_centroids, options.budget)), seed);
     auto partition = KMeans(points, centroids);
